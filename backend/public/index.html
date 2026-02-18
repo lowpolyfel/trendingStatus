@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trending Status Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Producción mensual</p>
+          <h1>Dashboard Trending Status</h1>
+        </div>
+        <div class="toolbar">
+          <label>
+            Mes
+            <input id="monthPicker" type="month" />
+          </label>
+          <button id="openTaskModal" class="btn btn-secondary">+ Nueva tarea</button>
+          <button id="openRecordModal" class="btn btn-primary">+ Nuevo registro</button>
+        </div>
+      </header>
+
+      <section class="kpi-grid" id="kpiGrid"></section>
+
+      <section class="grid two-columns">
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Objetivo vs logrado</h2>
+          </div>
+          <canvas id="performanceChart"></canvas>
+        </article>
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Tendencia 6 meses</h2>
+          </div>
+          <canvas id="trendChart"></canvas>
+        </article>
+      </section>
+
+      <section class="grid two-columns">
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Tareas</h2>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tarea</th>
+                  <th>Meta</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="tasksTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Registros diarios del mes</h2>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Tarea</th>
+                  <th>Cantidad</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="recordsTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <dialog id="taskDialog" class="modal">
+      <form method="dialog" id="taskForm">
+        <h3 id="taskDialogTitle">Nueva tarea</h3>
+        <label>
+          Nombre
+          <input name="name" required />
+        </label>
+        <label>
+          Meta mensual
+          <input name="target" type="number" min="1" required />
+        </label>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" value="cancel">Cancelar</button>
+          <button class="btn btn-primary" value="default">Guardar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="recordDialog" class="modal">
+      <form method="dialog" id="recordForm">
+        <h3 id="recordDialogTitle">Nuevo registro</h3>
+        <label>
+          Tarea
+          <select name="task_id" id="recordTaskSelect" required></select>
+        </label>
+        <label>
+          Fecha
+          <input name="record_date" type="date" required />
+        </label>
+        <label>
+          Cantidad
+          <input name="quantity" type="number" min="1" required />
+        </label>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" value="cancel">Cancelar</button>
+          <button class="btn btn-primary" value="default">Guardar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
